@@ -27,17 +27,17 @@ namespace LiteDbConsole
             var SettingsCollection = db.GetCollection<Settingi>("settings");
             var settingi = SettingsCollection.Query().Where(x => x.Password == PcName + Sid).FirstOrDefault();
             if (settingi == null)
-            {
-                AddUsr();
-            }
-            return settingi.ConnectionString;
+                return AddUsr();
+            else
+                return settingi.ConnectionString;
         }
 
-        private void AddUsr()
+        private string AddUsr()
         {
             var SettingsCollection = db.GetCollection<Settingi>("settings");
             var settingi = new Settingi { Password = PcName + Sid, ConnectionString = "Tessty" };
             SettingsCollection.Insert(settingi);
+            return settingi.ConnectionString;
         }
     }
 }
